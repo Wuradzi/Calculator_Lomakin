@@ -1,6 +1,5 @@
 let currentInput = '';
 let operation = null;
-let previousInput = '';
 
 function appendNumber(number) {
     currentInput += number;
@@ -13,28 +12,25 @@ function appendCharacter(char) {
 }
 
 function setOperation(op) {
-    if (currentInput === '') return;
-    if (previousInput !== '') calculateResult();
-    operation = op;
-    previousInput = currentInput;
-    currentInput = '';
+    if (currentInput === '' && op !== '-') return; // Allow negative numbers
+    if (currentInput.endsWith(op)) return; // Prevent duplicate operators
+    currentInput += ` ${op} `;
+    updateResult();
 }
 
 function calculateResult() {
     try {
-        currentInput = eval(currentInput).toString();
+        // Replace ^ with ** for exponentiation in eval
+        const expression = currentInput.replace(/\^/g, '**');
+        currentInput = eval(expression).toString();
     } catch (e) {
         currentInput = 'Error';
     }
-    operation = null;
-    previousInput = '';
     updateResult();
 }
 
 function clearResult() {
     currentInput = '';
-    operation = null;
-    previousInput = '';
     updateResult();
 }
 
