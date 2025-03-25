@@ -5,11 +5,11 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #2c2c2c; /* Dark gray background */
 }
 
 .calculator {
-    background: #fff;
+    background: #3a3a3a; /* Slightly lighter dark gray */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -25,8 +25,8 @@ body {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: black;
-    color: white;
+    background-color: #1e1e1e; /* Darker gray for result display */
+    color: #00ff00; /* Bright green text for better contrast */
 }
 
 .buttons {
@@ -42,14 +42,22 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #007BFF;
+    background-color: #4a4a4a; /* Neutral gray for number buttons */
     color: white;
 }
 
 .buttons button:hover {
-    background-color: #0056b3;
+    background-color: #5a5a5a; /* Slightly lighter gray on hover */
 }
 
 .buttons .zero {
     grid-column: span 2;
+}
+
+.buttons button.operation {
+    background-color: #ff5722; /* Distinct orange for operation buttons */
+}
+
+.buttons button.operation:hover {
+    background-color: #e64a19; /* Darker orange on hover */
 }
