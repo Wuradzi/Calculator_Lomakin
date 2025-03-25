@@ -1,47 +1,36 @@
 let currentInput = '';
 let operation = null;
-let previousInput = '';
 
 function appendNumber(number) {
     currentInput += number;
     updateResult();
 }
 
+function appendCharacter(char) {
+    currentInput += char;
+    updateResult();
+}
+
 function setOperation(op) {
-    if (currentInput === '') return;
-    if (previousInput !== '') calculateResult();
-    operation = op;
-    previousInput = currentInput;
-    currentInput = '';
+    if (currentInput === '' && op !== '-') return; // Allow negative numbers
+    if (currentInput.endsWith(op)) return; // Prevent duplicate operators
+    currentInput += ` ${op} `;
+    updateResult();
 }
 
 function calculateResult() {
-    if (operation === null || currentInput === '' || previousInput === '') return;
-    const num1 = parseFloat(previousInput);
-    const num2 = parseFloat(currentInput);
-    switch (operation) {
-        case '+':
-            currentInput = (num1 + num2).toString();
-            break;
-        case '-':
-            currentInput = (num1 - num2).toString();
-            break;
-        case '*':
-            currentInput = (num1 * num2).toString();
-            break;
-        case '/':
-            currentInput = (num2 !== 0 ? (num1 / num2).toString() : 'Error');
-            break;
+    try {
+        // Replace ^ with ** for exponentiation in eval
+        const expression = currentInput.replace(/\^/g, '**');
+        currentInput = eval(expression).toString();
+    } catch (e) {
+        currentInput = 'Error';
     }
-    operation = null;
-    previousInput = '';
     updateResult();
 }
 
 function clearResult() {
     currentInput = '';
-    operation = null;
-    previousInput = '';
     updateResult();
 }
 
